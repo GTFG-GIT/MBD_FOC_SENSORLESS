@@ -1,0 +1,6 @@
+MBD_FOC_SENSORLESS_MODEL.obj
+MBD_FOC_SENSORLESS_MODEL_data.obj
+ert_main.obj
+rtGetInf.obj
+rtGetNaN.obj
+rt_nonfinite.obj

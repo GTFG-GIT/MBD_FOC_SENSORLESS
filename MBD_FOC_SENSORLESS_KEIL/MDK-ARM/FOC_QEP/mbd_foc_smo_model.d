@@ -1,0 +1,11 @@
+foc_qep\mbd_foc_smo_model.o: ..\Core\Foc\mbd_foc_smo_model.c
+foc_qep\mbd_foc_smo_model.o: ..\Core\Foc\mbd_foc_smo_model.h
+foc_qep\mbd_foc_smo_model.o: ..\Core\Foc\rtwtypes.h
+foc_qep\mbd_foc_smo_model.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+foc_qep\mbd_foc_smo_model.o: ..\Core\Foc\mbd_foc_smo_model_types.h
+foc_qep\mbd_foc_smo_model.o: ..\Core\Foc\rtGetInf.h
+foc_qep\mbd_foc_smo_model.o: ..\Core\Foc\rt_nonfinite.h
+foc_qep\mbd_foc_smo_model.o: ..\Core\Foc\zero_crossing_types.h
+foc_qep\mbd_foc_smo_model.o: ..\Core\Foc\mbd_foc_smo_model_private.h
+foc_qep\mbd_foc_smo_model.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+foc_qep\mbd_foc_smo_model.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
