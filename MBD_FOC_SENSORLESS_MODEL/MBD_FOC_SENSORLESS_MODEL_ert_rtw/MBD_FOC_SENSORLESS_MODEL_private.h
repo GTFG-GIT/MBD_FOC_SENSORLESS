@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.67
+ * Model version                  : 8.114
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sat Mar  4 11:06:23 2023
+ * C/C++ source code generated on : Sun Mar 12 22:05:47 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -71,14 +71,11 @@ extern void mul_wide_s32(int32_T in0, int32_T in1, uint32_T *ptrOutBitsHi,
   uint32_T *ptrOutBitsLo);
 extern int32_T mul_s32_hiSR(int32_T a, int32_T b, uint32_T aShift);
 extern int32_T mul_s32_loSR(int32_T a, int32_T b, uint32_T aShift);
-extern void mul_wide_u32(uint32_T in0, uint32_T in1, uint32_T *ptrOutBitsHi,
-  uint32_T *ptrOutBitsLo);
-extern uint32_T mul_u32_hiSR(uint32_T a, uint32_T b, uint32_T aShift);
 extern int32_T div_s32_floor(int32_T numerator, int32_T denominator);
 extern void MBD_FOC_SENSORLESS_MODEL_SpeedControl(real32_T rtu_Speed_Ref_PU,
-  int16_T rtu_Speed_Meas_PU, int16_T *rty_IdqRef_PU, int16_T *rty_IdqRef_PU_k,
-  const boolean_T *rtd_Enable, const boolean_T *rtd_EnableClosedLoop, const
-  boolean_T *rtd_EnableFOC, int16_T *rtd_SpeedRef,
+  int16_T rtu_Speed_Meas_PU, int16_T rty_IdqRef_PU[2], const boolean_T
+  *rtd_Enable, const boolean_T *rtd_EnableClosedLoop, const boolean_T
+  *rtd_EnableFOC, int16_T *rtd_SpeedRef,
   DW_SpeedControl_MBD_FOC_SENSORLESS_MODEL_T *localDW,
   ZCE_SpeedControl_MBD_FOC_SENSORLESS_MODEL_T *localZCE);
 

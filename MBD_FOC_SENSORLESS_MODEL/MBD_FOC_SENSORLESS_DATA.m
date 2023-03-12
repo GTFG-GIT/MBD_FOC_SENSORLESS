@@ -3,7 +3,7 @@
 % Description   :   Set Parameters for Sensorless FOC of PMSM Using SMO
 % File name     :   dsPIC33CK256MP508_SMO_LVMC_data.m
 % Copyright 2022 Microchip Technology Inc.
-
+clear;
 %% Simulation Parameters
 
 %% Set PWM Switching frequency
@@ -76,4 +76,4 @@ PI_params.delay_Speed1       = (PI_params.delay_IIR + 0.5*Ts)/Ts_speed;
 %% Open loop reference values
 T_Ref_openLoop          = 1;                    % Sec // Time for open-loop start-up
 Speed_Ref_openLoop      = 500;                  % RPM // Speed referene for open-loop start-up
-Iq_Ref_openLoop         = 0.5;                  % A   // Iq referene for open-loop start-up
+Iq_Ref_openLoop         = 0.0;                  % A   // Iq referene for open-loop start-up
