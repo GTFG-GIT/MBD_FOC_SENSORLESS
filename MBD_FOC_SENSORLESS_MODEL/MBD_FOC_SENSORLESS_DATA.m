@@ -58,8 +58,8 @@ inverter.opampInput_R  = 2.88e3;                    %Ohms   // Opamp Input resis
 inverter.opamp_Gain    = inverter.OpampFb_Rf/inverter.opampInput_R; % // Opamp Gain used for current measurement
 
 %% Derive Characteristics
-pmsm.N_base = mcb_getBaseSpeed(pmsm,inverter); %rpm // Base speed of motor at given Vdc
-
+%pmsm.N_base = mcb_getBaseSpeed(pmsm,inverter); %rpm // Base speed of motor at given Vdc
+pmsm.N_base = pmsm.N_max;
 %% PU System details // Set base values for pu conversion
 PU_System = mcb_SetPUSystem(pmsm,inverter);
 
@@ -77,3 +77,29 @@ PI_params.delay_Speed1       = (PI_params.delay_IIR + 0.5*Ts)/Ts_speed;
 T_Ref_openLoop          = 1;                    % Sec // Time for open-loop start-up
 Speed_Ref_openLoop      = 500;                  % RPM // Speed referene for open-loop start-up
 Iq_Ref_openLoop         = 0.0;                  % A   // Iq referene for open-loop start-up
+
+%% My PU base values
+Ibase = inverter.ISenseMax;
+Ubase = inverter.V_dc/sqrt(3);
+Wbase = pmsm.N_max*2*pi*pmsm.p/60;
+Fbase = Wbase/2/pi;
+Tbase = 1/Wbase;
+Lbase = Ubase/Ibase/Wbase;
+Rbase = Ubase/Ibase;
+Phibase = Ubase/Wbase; 
+%% Current loop gain setup
+curPI.KpD = (2*pi/25)*pmsm.Ld*Ibase/(Ts*Ubase);
+curPI.KiD = (pmsm.Rs/pmsm.Ld)*Ts;
+curPI.UpLimitD = 0.95;
+curPI.LoLimitD = -0.95;
+curPI.UpLimitIntgD = 0.8;
+curPI.LoLimitIntgD = -0.8;
+
+curPI.KpQ = (2*pi/25)*pmsm.Ld*Ibase/(Ts*Ubase);
+curPI.KiQ = (pmsm.Rs/pmsm.Ld)*Ts;
+curPI.UpLimitQ = 0.95;
+curPI.LoLimitQ = -0.95;
+curPI.UpLimitIntgQ = 0.8;
+curPI.LoLimitIntgQ = -0.8;
+%% Flux observer parameters
+FluxGama = 1.0;

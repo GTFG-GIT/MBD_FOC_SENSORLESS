@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.114
+ * Model version                  : 8.338
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sun Mar 12 22:05:47 2023
+ * C/C++ source code generated on : Mon Apr 10 21:14:23 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -17,14 +17,17 @@
 
 /* Invariant block signals (default storage) */
 const ConstB_MBD_FOC_SENSORLESS_MODEL_T MBD_FOC_SENSORLESS_MODEL_ConstB = {
-  2950,                                /* '<S150>/Data Type Conversion' */
-  1                                    /* '<S152>/NOT' */
+  4096,                                /* '<S54>/Data Type Conversion' */
+  6134,                                /* '<S55>/Square' */
+  1                                    /* '<S56>/NOT' */
 };
 
 /* Constant parameters (default storage) */
 const ConstP_MBD_FOC_SENSORLESS_MODEL_T MBD_FOC_SENSORLESS_MODEL_ConstP = {
-  /* Computed Parameter: sine_table_values_Value
-   * Referenced by: '<S14>/sine_table_values'
+  /* Pooled Parameter (Expression: )
+   * Referenced by:
+   *   '<S14>/sine_table_values'
+   *   '<S63>/sine_table_values'
    */
   { 0, 129, 257, 386, 515, 643, 772, 900, 1029, 1157, 1285, 1414, 1542, 1670,
     1798, 1926, 2053, 2181, 2309, 2436, 2563, 2690, 2817, 2944, 3070, 3196, 3322,

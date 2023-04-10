@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.114
+ * Model version                  : 8.338
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sun Mar 12 22:05:47 2023
+ * C/C++ source code generated on : Mon Apr 10 21:14:23 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -67,11 +67,16 @@ Verification pane for ERT based targets, which will disable the \
 preprocessor word size checks.
 #endif
 
+extern int16_T rt_sqrt_Us16En14_Ys16En14_Is32En28_s_s(int16_T u);
 extern void mul_wide_s32(int32_T in0, int32_T in1, uint32_T *ptrOutBitsHi,
   uint32_T *ptrOutBitsLo);
 extern int32_T mul_s32_hiSR(int32_T a, int32_T b, uint32_T aShift);
 extern int32_T mul_s32_loSR(int32_T a, int32_T b, uint32_T aShift);
 extern int32_T div_s32_floor(int32_T numerator, int32_T denominator);
+extern void MBD_FOC_SENSORLESS_MODEL_IfActionSubsystem(int16_T rtu_In1, int16_T *
+  rty_Out1);
+extern void MBD_FOC_SENSORLESS_MODEL_IfActionSubsystem1(int16_T rtu_In1, int16_T
+  *rty_Out1);
 extern void MBD_FOC_SENSORLESS_MODEL_SpeedControl(real32_T rtu_Speed_Ref_PU,
   int16_T rtu_Speed_Meas_PU, int16_T rty_IdqRef_PU[2], const boolean_T
   *rtd_Enable, const boolean_T *rtd_EnableClosedLoop, const boolean_T
