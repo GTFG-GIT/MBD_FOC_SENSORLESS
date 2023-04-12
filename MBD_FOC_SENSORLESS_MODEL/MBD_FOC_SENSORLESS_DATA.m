@@ -35,7 +35,7 @@ pmsm.Kt = 0.274;                %Nm/A       // Torque constant
 pmsm.J = 7.061551833333e-6;     %Kg-m2      // Inertia in SI units
 pmsm.B = 2.636875217824e-6;     %Kg-m2/s    // Friction Co-efficient
 pmsm.I_rated  = 3.42*sqrt(2);   %A      	// Rated current (phase-peak)
-pmsm.N_max    = 2000;           %rpm        // Max speed
+pmsm.N_max    = 2400;           %rpm        // Max speed
 pmsm.FluxPM   = (pmsm.Ke)/(sqrt(3)*2*pi*1000*pmsm.p/60); %PM flux computed from Ke
 pmsm.T_rated  = (3/2)*pmsm.p*pmsm.FluxPM*pmsm.I_rated;   %Get T_rated from I_rated
 
@@ -57,22 +57,6 @@ inverter.OpampFb_Rf    = 4.40e3;                    %Ohms   // Opamp Feedback re
 inverter.opampInput_R  = 2.88e3;                    %Ohms   // Opamp Input resistance for current measurement
 inverter.opamp_Gain    = inverter.OpampFb_Rf/inverter.opampInput_R; % // Opamp Gain used for current measurement
 
-%% Derive Characteristics
-%pmsm.N_base = mcb_getBaseSpeed(pmsm,inverter); %rpm // Base speed of motor at given Vdc
-pmsm.N_base = pmsm.N_max;
-%% PU System details // Set base values for pu conversion
-PU_System = mcb_SetPUSystem(pmsm,inverter);
-
-%% Controller design // Get ballpark values!
-% Get PI Gains
-PI_params = mcb.internal.SetControllerParameters(pmsm,inverter,PU_System,T_pwm,Ts,Ts_speed);
-
-%Updating delays for simulation
-PI_params.delay_Currents    = int32(Ts/Ts_simulink);
-PI_params.delay_Position    = int32(Ts/Ts_simulink);
-PI_params.delay_Speed       = int32(Ts_speed/Ts_simulink);
-PI_params.delay_Speed1       = (PI_params.delay_IIR + 0.5*Ts)/Ts_speed;
-
 %% Open loop reference values
 T_Ref_openLoop          = 1;                    % Sec // Time for open-loop start-up
 Speed_Ref_openLoop      = 500;                  % RPM // Speed referene for open-loop start-up
@@ -81,9 +65,10 @@ Iq_Ref_openLoop         = 0.0;                  % A   // Iq referene for open-lo
 %% My PU base values
 Ibase = inverter.ISenseMax;
 Ubase = inverter.V_dc/sqrt(3);
-Wbase = pmsm.N_max*2*pi*pmsm.p/60;
-Fbase = Wbase/2/pi;
+Fbase = pmsm.N_max*pmsm.p/60;
+Wbase = Fbase*2*pi;
 Tbase = 1/Wbase;
+Nbase = Fbase*60/pmsm.p;
 Lbase = Ubase/Ibase/Wbase;
 Rbase = Ubase/Ibase;
 Phibase = Ubase/Wbase; 
