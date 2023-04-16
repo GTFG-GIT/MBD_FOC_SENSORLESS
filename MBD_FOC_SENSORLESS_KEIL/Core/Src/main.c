@@ -161,7 +161,7 @@ void rt_OneStep(void)
     /* Set model inputs associated with subrates here */
 
     /* Step the model for subrate 1 */
-    MbdFocSpdCtrl();
+    MBD_FOC_SENSORLESS_MODEL_step1();
 
     /* Get model outputs here */
 
@@ -752,7 +752,8 @@ static uint16_t aa;
 	MBD_FOC_SENSORLESS_MODEL_DW.ADC_IA = Ia;
 	MBD_FOC_SENSORLESS_MODEL_DW.ADC_IB = Ib;
 	MBD_FOC_SENSORLESS_MODEL_DW.Enable = ENABLE_INV;
-	MBD_FOC_SENSORLESS_MODEL_DW.SpeedRef = 16384*(SPEED_REF/2000.0F);
+	//MBD_FOC_SENSORLESS_MODEL_DW.SpeedRef = 16384*(SPEED_REF/2000.0F);
+	VelRef = SPEED_REF;
 	rt_OneStep();
 	// scale duty ratio to PWM counter period
 //	for (int i = 0; i < 3; i++)

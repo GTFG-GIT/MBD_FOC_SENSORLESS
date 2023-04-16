@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.338
+ * Model version                  : 8.386
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Mon Apr 10 21:14:23 2023
+ * C/C++ source code generated on : Sun Apr 16 21:56:11 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -34,6 +34,7 @@
 volatile uint16_T Pwm1Duty;            /* '<Root>/Data Store Memory5' */
 volatile uint16_T Pwm2Duty;            /* '<Root>/Data Store Memory7' */
 volatile uint16_T Pwm3Duty;            /* '<Root>/Data Store Memory8' */
+volatile real32_T VelRef;              /* '<Root>/Data Store Memory11' */
 volatile int16_T smoAnglePU;           /* '<Root>/Data Store Memory9' */
 
 /* Block signals (default storage) */
@@ -181,28 +182,14 @@ void MBD_FOC_SENSORLESS_MODEL_IfActionSubsystem1(int16_T rtu_In1, int16_T
 /* Output and update for atomic system: '<Root>/Speed Control' */
 void MBD_FOC_SENSORLESS_MODEL_SpeedControl(real32_T rtu_Speed_Ref_PU, int16_T
   rtu_Speed_Meas_PU, int16_T rty_IdqRef_PU[2], const boolean_T *rtd_Enable,
-  const boolean_T *rtd_EnableClosedLoop, const boolean_T *rtd_EnableFOC, int16_T
-  *rtd_SpeedRef, DW_SpeedControl_MBD_FOC_SENSORLESS_MODEL_T *localDW,
+  const boolean_T *rtd_EnableClosedLoop, const boolean_T *rtd_EnableFOC,
+  real32_T *rtd_SpeedRef, DW_SpeedControl_MBD_FOC_SENSORLESS_MODEL_T *localDW,
   ZCE_SpeedControl_MBD_FOC_SENSORLESS_MODEL_T *localZCE)
 {
-  real32_T rtb_RateLimiter2;
+  real32_T rtb_Add1_j;
+  real32_T tmp;
   int16_T rtb_Add2_p;
-  int16_T rtb_DataTypeConversion1_c;
   int16_T rtb_Up;
-
-  /* RateLimiter: '<S4>/Rate Limiter2' */
-  rtb_RateLimiter2 = rtu_Speed_Ref_PU - localDW->PrevY;
-  if (rtb_RateLimiter2 > 0.00075F) {
-    rtb_RateLimiter2 = localDW->PrevY + 0.00075F;
-  } else if (rtb_RateLimiter2 < -0.0003F) {
-    rtb_RateLimiter2 = localDW->PrevY - 0.0003F;
-  } else {
-    rtb_RateLimiter2 = rtu_Speed_Ref_PU;
-  }
-
-  localDW->PrevY = rtb_RateLimiter2;
-
-  /* End of RateLimiter: '<S4>/Rate Limiter2' */
 
   /* Switch: '<S80>/Switch' incorporates:
    *  Constant: '<S80>/Constant'
@@ -210,56 +197,50 @@ void MBD_FOC_SENSORLESS_MODEL_SpeedControl(real32_T rtu_Speed_Ref_PU, int16_T
    *  DataStoreWrite: '<S4>/Data Store Write'
    */
   if (*rtd_EnableFOC) {
-    /* DataTypeConversion: '<S4>/Data Type Conversion1' */
-    rtb_RateLimiter2 = (real32_T)floor(rtb_RateLimiter2 * 16384.0F);
-    if (rtIsNaNF(rtb_RateLimiter2) || rtIsInfF(rtb_RateLimiter2)) {
-      rtb_RateLimiter2 = 0.0F;
-    } else {
-      rtb_RateLimiter2 = (real32_T)fmod(rtb_RateLimiter2, 65536.0);
-    }
-
-    rtb_DataTypeConversion1_c = (int16_T)(rtb_RateLimiter2 < 0.0F ? (int32_T)
-      (int16_T)-(int16_T)(uint16_T)-rtb_RateLimiter2 : (int32_T)(int16_T)
-      (uint16_T)rtb_RateLimiter2);
-
-    /* End of DataTypeConversion: '<S4>/Data Type Conversion1' */
-
     /* Saturate: '<S4>/Saturation' incorporates:
      *  DataStoreWrite: '<S4>/Data Store Write'
-     *  DataTypeConversion: '<S4>/Data Type Conversion1'
-     *  Switch: '<S80>/Switch'
      */
-    if (rtb_DataTypeConversion1_c > 16384) {
-      *rtd_SpeedRef = 16384;
-    } else if (rtb_DataTypeConversion1_c < 4096) {
-      *rtd_SpeedRef = 4096;
+    if (rtu_Speed_Ref_PU > 1.0F) {
+      *rtd_SpeedRef = 1.0F;
+    } else if (rtu_Speed_Ref_PU < 0.208333328F) {
+      *rtd_SpeedRef = 0.208333328F;
     } else {
-      *rtd_SpeedRef = rtb_DataTypeConversion1_c;
+      *rtd_SpeedRef = rtu_Speed_Ref_PU;
     }
 
     /* End of Saturate: '<S4>/Saturation' */
   } else {
-    *rtd_SpeedRef = 0;
+    *rtd_SpeedRef = 0.0F;
   }
 
   /* End of Switch: '<S80>/Switch' */
 
   /* Sum: '<S87>/Add1' incorporates:
+   *  Constant: '<S87>/Filter_Constant'
+   *  Constant: '<S87>/One'
    *  DataStoreWrite: '<S4>/Data Store Write'
    *  Product: '<S87>/Product'
    *  Product: '<S87>/Product1'
-   *  Switch: '<S80>/Switch'
    *  UnitDelay: '<S87>/Unit Delay'
    */
-  rtb_DataTypeConversion1_c = (int16_T)(((*rtd_SpeedRef * 123) >> 12) + ((3973 *
-    localDW->UnitDelay_DSTATE) >> 12));
+  rtb_Add1_j = *rtd_SpeedRef * 0.03F + 0.97F * localDW->UnitDelay_DSTATE;
 
   /* Product: '<S84>/Up' incorporates:
+   *  Constant: '<S79>/Kp1'
    *  Sum: '<S84>/Add'
-   *  Sum: '<S87>/Add1'
    */
-  rtb_Up = (int16_T)(((int16_T)(rtb_DataTypeConversion1_c - rtu_Speed_Meas_PU) *
-                      83) >> 7);
+  tmp = (real32_T)floor((rtb_Add1_j - (real32_T)rtu_Speed_Meas_PU *
+    6.10351562E-5F) * 0.650024414F * 16384.0F);
+  if (rtIsNaNF(tmp) || rtIsInfF(tmp)) {
+    tmp = 0.0F;
+  } else {
+    tmp = (real32_T)fmod(tmp, 65536.0);
+  }
+
+  rtb_Up = (int16_T)(tmp < 0.0F ? (int32_T)(int16_T)-(int16_T)(uint16_T)-tmp :
+                     (int32_T)(int16_T)(uint16_T)tmp);
+
+  /* End of Product: '<S84>/Up' */
 
   /* Sum: '<S84>/Add2' incorporates:
    *  Product: '<S84>/Product1'
@@ -275,14 +256,14 @@ void MBD_FOC_SENSORLESS_MODEL_SpeedControl(real32_T rtu_Speed_Ref_PU, int16_T
    *  Sum: '<S84>/Add2'
    *  Switch: '<S88>/Switch'
    */
-  if (rtb_Add2_p > 16384) {
-    rtb_Add2_p = 16384;
-  } else if (rtb_Add2_p < -16384) {
+  if (rtb_Add2_p > 13107) {
+    rtb_Add2_p = 13107;
+  } else if (rtb_Add2_p < -13107) {
     /* Switch: '<S88>/Switch' incorporates:
      *  Constant: '<S79>/Ki4'
      *  Switch: '<S88>/Switch2'
      */
-    rtb_Add2_p = -16384;
+    rtb_Add2_p = -13107;
   }
 
   /* End of Switch: '<S88>/Switch2' */
@@ -349,10 +330,8 @@ void MBD_FOC_SENSORLESS_MODEL_SpeedControl(real32_T rtu_Speed_Ref_PU, int16_T
 
   /* End of Outputs for SubSystem: '<S81>/Triggered Subsystem' */
 
-  /* Update for UnitDelay: '<S87>/Unit Delay' incorporates:
-   *  Sum: '<S87>/Add1'
-   */
-  localDW->UnitDelay_DSTATE = rtb_DataTypeConversion1_c;
+  /* Update for UnitDelay: '<S87>/Unit Delay' */
+  localDW->UnitDelay_DSTATE = rtb_Add1_j;
 
   /* Switch: '<S84>/Switch2' incorporates:
    *  DataStoreRead: '<S79>/Data Store Read1'
@@ -522,8 +501,8 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
    *  Delay: '<S1>/Delay'
    *  Gain: '<S55>/Gain8'
    */
-  MBD_FOC_SENSORLESS_MODEL_B.DiscreteTimeIntegrator4 = (4645 *
-    MBD_FOC_SENSORLESS_MODEL_DW.Delay_DSTATE[1]) >> 16;
+  MBD_FOC_SENSORLESS_MODEL_B.DiscreteTimeIntegrator4 = (2787 *
+    MBD_FOC_SENSORLESS_MODEL_DW.Delay_DSTATE[1]) >> 15;
 
   /* Sum: '<S55>/Add3' incorporates:
    *  Gain: '<S55>/Ls1_PU'
@@ -537,8 +516,8 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
    *  Delay: '<S1>/Delay'
    *  Gain: '<S55>/L_PU'
    */
-  MBD_FOC_SENSORLESS_MODEL_B.rtb_Sum5_tmp = (4645 *
-    MBD_FOC_SENSORLESS_MODEL_DW.Delay_DSTATE[0]) >> 16;
+  MBD_FOC_SENSORLESS_MODEL_B.rtb_Sum5_tmp = (2787 *
+    MBD_FOC_SENSORLESS_MODEL_DW.Delay_DSTATE[0]) >> 15;
 
   /* Sum: '<S55>/Add2' incorporates:
    *  Gain: '<S55>/Ls_PU'
@@ -591,7 +570,7 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
   rtb_Add8 = (int16_T)((((int16_T)((int16_T)
     (MBD_FOC_SENSORLESS_MODEL_DW.Delay_DSTATE[3] - ((4405 *
     MBD_FOC_SENSORLESS_MODEL_DW.Delay_DSTATE[1]) >> 16)) + (int16_T)
-    ((rtb_Product_g * rtb_DataTypeConversion3) >> 14)) * 6863) >> 17) +
+    ((rtb_Product_g * rtb_DataTypeConversion3) >> 14)) * 16471) >> 18) +
                        MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay3_DSTATE);
 
   /* Sum: '<S55>/x2-ib*L' incorporates:
@@ -615,7 +594,7 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
   rtb_Add6 = (int16_T)((((int16_T)((int16_T)
     (MBD_FOC_SENSORLESS_MODEL_DW.Delay_DSTATE[2] - ((4405 *
     MBD_FOC_SENSORLESS_MODEL_DW.Delay_DSTATE[0]) >> 16)) + (int16_T)((rtb_Sum5 *
-    rtb_DataTypeConversion3) >> 14)) * 6863) >> 17) +
+    rtb_DataTypeConversion3) >> 14)) * 16471) >> 18) +
                        MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay2_DSTATE);
 
   /* Sum: '<S55>/x1-ia*L' incorporates:
@@ -654,6 +633,25 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
    */
   y = (uint16_T)((uint16_T)rtb_DataTypeConversion3 % 25736);
 
+  /* Gain: '<S55>/Inverting OpAmp5' incorporates:
+   *  DataStoreRead: '<S9>/Data Store Read5'
+   */
+  MBD_FOC_SENSORLESS_MODEL_B.u = 2400.0F * MBD_FOC_SENSORLESS_MODEL_DW.SpeedRef *
+    4.0F;
+  if (MBD_FOC_SENSORLESS_MODEL_B.u < 0.0F) {
+    MBD_FOC_SENSORLESS_MODEL_B.u = (real32_T)ceil(MBD_FOC_SENSORLESS_MODEL_B.u);
+  } else {
+    MBD_FOC_SENSORLESS_MODEL_B.u = (real32_T)floor(MBD_FOC_SENSORLESS_MODEL_B.u);
+  }
+
+  if (rtIsNaNF(MBD_FOC_SENSORLESS_MODEL_B.u) || rtIsInfF
+      (MBD_FOC_SENSORLESS_MODEL_B.u)) {
+    MBD_FOC_SENSORLESS_MODEL_B.u = 0.0F;
+  } else {
+    MBD_FOC_SENSORLESS_MODEL_B.u = (real32_T)fmod(MBD_FOC_SENSORLESS_MODEL_B.u,
+      65536.0);
+  }
+
   /* Sum: '<S60>/Sum2' incorporates:
    *  Gain: '<S61>/Gain2'
    *  UnitDelay: '<S60>/Unit Delay3'
@@ -669,7 +667,6 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
 
   /* DiscreteIntegrator: '<S60>/Discrete-Time Integrator4' incorporates:
    *  Bias: '<S73>/Bias1'
-   *  DataStoreRead: '<S9>/Data Store Read5'
    *  Delay: '<S60>/Delay1'
    *  Gain: '<S55>/Gain10'
    *  Gain: '<S55>/Inverting OpAmp5'
@@ -683,8 +680,10 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
     ((int16_T)(((int16_T)(((((MBD_FOC_SENSORLESS_MODEL_B.u0 - div_s32_floor
     (MBD_FOC_SENSORLESS_MODEL_B.u0, 105414357) * 105414357) + -52707179) >> 12) *
     625) >> 4) - (MBD_FOC_SENSORLESS_MODEL_DW.Delay1_DSTATE << 1)) >> 1) *
-     ((((125 * MBD_FOC_SENSORLESS_MODEL_DW.SpeedRef) >> 8) * 17157) >> 14)) << 3,
-    11U) + MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator4_DSTATE;
+     (int16_T)(((MBD_FOC_SENSORLESS_MODEL_B.u < 0.0F ? (int32_T)(int16_T)
+                 -(int16_T)(uint16_T)-MBD_FOC_SENSORLESS_MODEL_B.u : (int32_T)
+                 (int16_T)(uint16_T)MBD_FOC_SENSORLESS_MODEL_B.u) * 17157) >> 14))
+    << 3, 11U) + MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator4_DSTATE;
 
   /* DataTypeConversion: '<S60>/Data Type Conversion1' incorporates:
    *  DiscreteIntegrator: '<S60>/Discrete-Time Integrator4'
@@ -695,7 +694,7 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
   /* Gain: '<S55>/Gain9' incorporates:
    *  DataTypeConversion: '<S60>/Data Type Conversion1'
    */
-  MBD_FOC_SENSORLESS_MODEL_B.Gain9 = (int16_T)((16021 * rtb_DataTypeConversion1)
+  MBD_FOC_SENSORLESS_MODEL_B.Gain9 = (int16_T)((13351 * rtb_DataTypeConversion1)
     >> 12);
 
   /* Chart: '<S3>/Chart' incorporates:
@@ -779,7 +778,7 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
      default:
       /* case IN_OpenLoop: */
       if ((MBD_FOC_SENSORLESS_MODEL_DW.temporalCounter_i1 >= 20000U) &&
-          (MBD_FOC_SENSORLESS_MODEL_B.Gain9 >= 2458)) {
+          (MBD_FOC_SENSORLESS_MODEL_B.Gain9 >= 1775)) {
         MBD_FOC_SENSORLESS_MODEL_DW.is_c3_MBD_FOC_SENSORLESS_MODEL =
           MBD_FOC_SENSORLESS_MODEL_IN_ClosedLoop;
         MBD_FOC_SENSORLESS_MODEL_DW.temporalCounter_i1 = 0U;
@@ -911,7 +910,7 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
        *  DiscreteIntegrator: '<S54>/Discrete-Time Integrator'
        *  Gain: '<S54>/Gain'
        */
-      MBD_FOC_SENSORLESS_MODEL_B.Input = (int16_T)mul_s32_loSR(4369,
+      MBD_FOC_SENSORLESS_MODEL_B.Input = (int16_T)mul_s32_loSR(5243,
         MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE, 25U);
     }
 
@@ -953,8 +952,8 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
    */
   MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE += mul_s32_hiSR
     (824633721, MBD_FOC_SENSORLESS_MODEL_ConstB.DataTypeConversion, 5U);
-  if (MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE >= 262144) {
-    MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE = 262144;
+  if (MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE >= 218453) {
+    MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE = 218453;
   } else if (MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE <= 0) {
     MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE = 0;
   }
@@ -1769,10 +1768,16 @@ void MbdFocSensorlessCurrentCtrl(void) /* Sample time: [5.0E-5s, 0.0s] */
 }
 
 /* Model step function for TID1 */
-void MbdFocSpdCtrl(void)               /* Sample time: [0.0015s, 0.0s] */
+void MBD_FOC_SENSORLESS_MODEL_step1(void) /* Sample time: [0.0015s, 0.0s] */
 {
+  real32_T rtb_RateTransition6;
   int16_T rtb_Switch2[2];
   int16_T rtb_RateTransition7;
+
+  /* RateTransition: '<Root>/Rate Transition6' incorporates:
+   *  DataStoreRead: '<Root>/Data Store Read1'
+   */
+  rtb_RateTransition6 = VelRef;
 
   /* RateTransition: '<Root>/Rate Transition7' incorporates:
    *  Gain: '<S55>/Gain9'
@@ -1780,8 +1785,8 @@ void MbdFocSpdCtrl(void)               /* Sample time: [0.0015s, 0.0s] */
   rtb_RateTransition7 = MBD_FOC_SENSORLESS_MODEL_B.Gain9;
 
   /* Outputs for Atomic SubSystem: '<Root>/Speed Control' */
-  MBD_FOC_SENSORLESS_MODEL_SpeedControl(0.5F, rtb_RateTransition7, rtb_Switch2,
-    &MBD_FOC_SENSORLESS_MODEL_DW.Enable,
+  MBD_FOC_SENSORLESS_MODEL_SpeedControl(rtb_RateTransition6, rtb_RateTransition7,
+    rtb_Switch2, &MBD_FOC_SENSORLESS_MODEL_DW.Enable,
     &MBD_FOC_SENSORLESS_MODEL_DW.EnableClosedLoop,
     &MBD_FOC_SENSORLESS_MODEL_DW.EnableFOC,
     &MBD_FOC_SENSORLESS_MODEL_DW.SpeedRef,

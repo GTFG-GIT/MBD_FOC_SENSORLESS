@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.338
+ * Model version                  : 8.386
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Mon Apr 10 21:14:23 2023
+ * C/C++ source code generated on : Sun Apr 16 21:56:11 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -17,8 +17,8 @@
 
 /* Invariant block signals (default storage) */
 const ConstB_MBD_FOC_SENSORLESS_MODEL_T MBD_FOC_SENSORLESS_MODEL_ConstB = {
-  4096,                                /* '<S54>/Data Type Conversion' */
-  6134,                                /* '<S55>/Square' */
+  3413,                                /* '<S54>/Data Type Conversion' */
+  8833,                                /* '<S55>/Square' */
   1                                    /* '<S56>/NOT' */
 };
 

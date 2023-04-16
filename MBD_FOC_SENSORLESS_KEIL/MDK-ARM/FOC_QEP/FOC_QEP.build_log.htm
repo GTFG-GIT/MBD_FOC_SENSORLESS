@@ -27,11 +27,6 @@ Project File Date:  03/04/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'FOC_QEP'
-compiling rt_nonfinite.c...
-compiling rtGetInf.c...
-compiling rtGetNaN.c...
-compiling MBD_FOC_SENSORLESS_MODEL.c...
-compiling MBD_FOC_SENSORLESS_MODEL_data.c...
 compiling main.c...
 ../Core/Src/main.c(739): warning:  #188-D: enumerated type mixed with another type
   	HAL_GPIO_WritePin(
@@ -39,15 +34,15 @@ PIOC,
 H1_EN_Pin|
 H2_EN_Pin|
 H3_EN_Pin, (uint8_t)ENABLE_INV);
-../Core/Src/main.c(777): warning:  #223-D: function "memcpy" declared implicitly
+../Core/Src/main.c(778): warning:  #223-D: function "memcpy" declared implicitly
   		memcpy((uint8_t *)(tx_buffer + 2), &Ia, 2);
-../Core/Src/main.c(786): warning:  #223-D: function "memcpy" declared implicitly
+../Core/Src/main.c(787): warning:  #223-D: function "memcpy" declared implicitly
   		memcpy((uint8_t *)(tx_buffer), &Ia, 2);
-../Core/Src/main.c(796): warning:  #223-D: function "memcpy" declared implicitly
+../Core/Src/main.c(797): warning:  #223-D: function "memcpy" declared implicitly
   		memcpy((uint8_t *)(tx_buffer), &Ia, 2);
 ../Core/Src/main.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=26476 RO-data=2520 RW-data=120 ZI-data=2000  
+Program Size: Code=27044 RO-data=2520 RW-data=124 ZI-data=2012  
 FromELF: creating hex file...
 "FOC_QEP\FOC_QEP.axf" - 0 Error(s), 4 Warning(s).
 

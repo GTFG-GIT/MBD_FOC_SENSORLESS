@@ -1,6 +1,6 @@
 Dependencies for Project 'FOC_QEP', Target 'FOC_QEP': (DO NOT MODIFY !)
 F (startup_stm32f302x8.s)(0x63FA1085)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include--pd "__UVISION_VERSION SETA 518" --pd "_RTE_ SETA 1" --pd "STM32F302x8 SETA 1"--list startup_stm32f302x8.lst --xref -o foc_qep\startup_stm32f302x8.o --depend foc_qep\startup_stm32f302x8.d)
-F (../Core/Src/main.c)(0x6402B6FE)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\main.o --depend foc_qep\main.d)
+F (../Core/Src/main.c)(0x643C0178)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\main.o --depend foc_qep\main.d)
 I (../Core/Inc/main.h)(0x63FA107F)
 I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h)(0x63F76E7C)
 I (../Core/Inc/stm32f3xx_hal_conf.h)(0x63FA107E)
@@ -36,12 +36,12 @@ I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h)(0x63F76E7C)
 I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h)(0x63F76E7C)
 I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h)(0x63F76E7C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
-I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL.h)(0x64340BB8)
-I (..\Core\Foc\rtwtypes.h)(0x64340BB9)
-I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_types.h)(0x64340BB9)
-I (..\Core\Foc\rtGetInf.h)(0x64340BB6)
-I (..\Core\Foc\rt_nonfinite.h)(0x64340BB6)
-I (..\Core\Foc\zero_crossing_types.h)(0x64340BB9)
+I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL.h)(0x643BFE86)
+I (..\Core\Foc\rtwtypes.h)(0x643BFE86)
+I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_types.h)(0x643BFE86)
+I (..\Core\Foc\rtGetInf.h)(0x643BFE82)
+I (..\Core\Foc\rt_nonfinite.h)(0x643BFE82)
+I (..\Core\Foc\zero_crossing_types.h)(0x643BFE86)
 F (../Core/Src/stm32f3xx_it.c)(0x63FA107D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\stm32f3xx_it.o --depend foc_qep\stm32f3xx_it.d)
 I (../Core/Inc/main.h)(0x63FA107F)
 I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h)(0x63F76E7C)
@@ -113,41 +113,41 @@ I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h)(0x63F76E7C)
 I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h)(0x63F76E7C)
 I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h)(0x63F76E7C)
 I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h)(0x63F76E7C)
-F (..\Core\Foc\rt_nonfinite.c)(0x64340BB9)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\rt_nonfinite.o --depend foc_qep\rt_nonfinite.d)
-I (..\Core\Foc\rtGetNaN.h)(0x64340BB6)
-I (..\Core\Foc\rtwtypes.h)(0x64340BB9)
-I (..\Core\Foc\rtGetInf.h)(0x64340BB6)
+F (..\Core\Foc\rt_nonfinite.c)(0x643BFE86)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\rt_nonfinite.o --depend foc_qep\rt_nonfinite.d)
+I (..\Core\Foc\rtGetNaN.h)(0x643BFE82)
+I (..\Core\Foc\rtwtypes.h)(0x643BFE86)
+I (..\Core\Foc\rtGetInf.h)(0x643BFE82)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
-I (..\Core\Foc\rt_nonfinite.h)(0x64340BB6)
-F (..\Core\Foc\rtGetInf.c)(0x64340BB9)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\rtgetinf.o --depend foc_qep\rtgetinf.d)
-I (..\Core\Foc\rtwtypes.h)(0x64340BB9)
-I (..\Core\Foc\rtGetInf.h)(0x64340BB6)
+I (..\Core\Foc\rt_nonfinite.h)(0x643BFE82)
+F (..\Core\Foc\rtGetInf.c)(0x643BFE86)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\rtgetinf.o --depend foc_qep\rtgetinf.d)
+I (..\Core\Foc\rtwtypes.h)(0x643BFE86)
+I (..\Core\Foc\rtGetInf.h)(0x643BFE82)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
-I (..\Core\Foc\rt_nonfinite.h)(0x64340BB6)
-F (..\Core\Foc\rtGetNaN.c)(0x64340BB9)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\rtgetnan.o --depend foc_qep\rtgetnan.d)
-I (..\Core\Foc\rtwtypes.h)(0x64340BB9)
-I (..\Core\Foc\rtGetNaN.h)(0x64340BB6)
+I (..\Core\Foc\rt_nonfinite.h)(0x643BFE82)
+F (..\Core\Foc\rtGetNaN.c)(0x643BFE86)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\rtgetnan.o --depend foc_qep\rtgetnan.d)
+I (..\Core\Foc\rtwtypes.h)(0x643BFE86)
+I (..\Core\Foc\rtGetNaN.h)(0x643BFE82)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
-I (..\Core\Foc\rt_nonfinite.h)(0x64340BB6)
-F (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL.c)(0x64340BB8)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\mbd_foc_sensorless_model.o --depend foc_qep\mbd_foc_sensorless_model.d)
-I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL.h)(0x64340BB8)
-I (..\Core\Foc\rtwtypes.h)(0x64340BB9)
+I (..\Core\Foc\rt_nonfinite.h)(0x643BFE82)
+F (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL.c)(0x643BFE86)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\mbd_foc_sensorless_model.o --depend foc_qep\mbd_foc_sensorless_model.d)
+I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL.h)(0x643BFE86)
+I (..\Core\Foc\rtwtypes.h)(0x643BFE86)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
-I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_types.h)(0x64340BB9)
-I (..\Core\Foc\rtGetInf.h)(0x64340BB6)
-I (..\Core\Foc\rt_nonfinite.h)(0x64340BB6)
-I (..\Core\Foc\zero_crossing_types.h)(0x64340BB9)
-I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_private.h)(0x64340BB9)
+I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_types.h)(0x643BFE86)
+I (..\Core\Foc\rtGetInf.h)(0x643BFE82)
+I (..\Core\Foc\rt_nonfinite.h)(0x643BFE82)
+I (..\Core\Foc\zero_crossing_types.h)(0x643BFE86)
+I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_private.h)(0x643BFE86)
 I (C:\Keil_v5\ARM\ARMCC\include\limits.h)(0x569DEA3A)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
-F (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_data.c)(0x64340BB8)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\mbd_foc_sensorless_model_data.o --depend foc_qep\mbd_foc_sensorless_model_data.d)
-I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL.h)(0x64340BB8)
-I (..\Core\Foc\rtwtypes.h)(0x64340BB9)
+F (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_data.c)(0x643BFE86)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\mbd_foc_sensorless_model_data.o --depend foc_qep\mbd_foc_sensorless_model_data.d)
+I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL.h)(0x643BFE86)
+I (..\Core\Foc\rtwtypes.h)(0x643BFE86)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
-I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_types.h)(0x64340BB9)
-I (..\Core\Foc\rtGetInf.h)(0x64340BB6)
-I (..\Core\Foc\rt_nonfinite.h)(0x64340BB6)
-I (..\Core\Foc\zero_crossing_types.h)(0x64340BB9)
+I (..\Core\Foc\MBD_FOC_SENSORLESS_MODEL_types.h)(0x643BFE86)
+I (..\Core\Foc\rtGetInf.h)(0x643BFE82)
+I (..\Core\Foc\rt_nonfinite.h)(0x643BFE82)
+I (..\Core\Foc\zero_crossing_types.h)(0x643BFE86)
 F (../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.c)(0x63F76E7C)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc -I ../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\Foc-I D:\WorkSpace\mat_work\MBD\MBD_FOC_SENSORLESS\MBD_FOC_SENSORLESS_KEIL\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F302x8 -DUSE_HAL_DRIVER -DSTM32F302x8-o foc_qep\stm32f3xx_hal_adc.o --depend foc_qep\stm32f3xx_hal_adc.d)
 I (../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h)(0x63F76E7C)
 I (../Core/Inc/stm32f3xx_hal_conf.h)(0x63FA107E)

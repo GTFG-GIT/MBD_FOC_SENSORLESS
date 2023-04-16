@@ -5,9 +5,9 @@ function CodeMetrics() {
 	 this.metricsArray.var["MBD_FOC_SENSORLESS_MODEL.c:MBD_FOC_SENSORLESS_MODEL_M_"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
 	size: 4};
 	 this.metricsArray.var["MBD_FOC_SENSORLESS_MODEL_B"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
-	size: 56};
+	size: 60};
 	 this.metricsArray.var["MBD_FOC_SENSORLESS_MODEL_DW"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
-	size: 76};
+	size: 80};
 	 this.metricsArray.var["MBD_FOC_SENSORLESS_MODEL_PrevZCX"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
 	size: 2};
 	 this.metricsArray.var["Pwm1Duty"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
@@ -16,6 +16,8 @@ function CodeMetrics() {
 	size: 2};
 	 this.metricsArray.var["Pwm3Duty"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
 	size: 2};
+	 this.metricsArray.var["VelRef"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
+	size: 4};
 	 this.metricsArray.var["rtInf"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\rt_nonfinite.c",
 	size: 8};
 	 this.metricsArray.var["rtInfF"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\rt_nonfinite.c",
@@ -40,8 +42,11 @@ function CodeMetrics() {
 	stack: 0,
 	stackTotal: 0};
 	 this.metricsArray.fcn["MBD_FOC_SENSORLESS_MODEL_SpeedControl"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
+	stack: 12,
+	stackTotal: 16};
+	 this.metricsArray.fcn["MBD_FOC_SENSORLESS_MODEL_step1"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
 	stack: 10,
-	stackTotal: 14};
+	stackTotal: 26};
 	 this.metricsArray.fcn["MBD_FOC_SENSORLESS_MODEL_terminate"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
 	stack: 0,
 	stackTotal: 0};
@@ -51,9 +56,6 @@ function CodeMetrics() {
 	 this.metricsArray.fcn["MbdFocSensorlessInit"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
 	stack: 0,
 	stackTotal: 24};
-	 this.metricsArray.fcn["MbdFocSpdCtrl"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
-	stack: 6,
-	stackTotal: 20};
 	 this.metricsArray.fcn["byteswap-16.h:__bswap_16"] = {file: "D:\\Matlab2022b\\polyspace\\verifier\\cxx\\include\\include-libc\\bits\\byteswap-16.h",
 	stack: 0,
 	stackTotal: 0};
@@ -61,6 +63,9 @@ function CodeMetrics() {
 	stack: 0,
 	stackTotal: 0};
 	 this.metricsArray.fcn["byteswap.h:__bswap_64"] = {file: "D:\\Matlab2022b\\polyspace\\verifier\\cxx\\include\\include-libc\\bits\\byteswap.h",
+	stack: 0,
+	stackTotal: 0};
+	 this.metricsArray.fcn["ceil"] = {file: "D:\\Matlab2022b\\polyspace\\verifier\\cxx\\include\\include-libc\\bits\\mathcalls.h",
 	stack: 0,
 	stackTotal: 0};
 	 this.metricsArray.fcn["div_s32_floor"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
@@ -127,6 +132,6 @@ function CodeMetrics() {
 			 data.type = "var";
 		 }
 	 return data; }; 
-	 this.codeMetricsSummary = '<a href="javascript:void(0)" onclick="return postParentWindowMessage({message:\'gotoReportPage\', pageName:\'MBD_FOC_SENSORLESS_MODEL_metrics\'});">Global Memory: 182(bytes) Maximum Stack: 38(bytes)</a>';
+	 this.codeMetricsSummary = '<a href="javascript:void(0)" onclick="return postParentWindowMessage({message:\'gotoReportPage\', pageName:\'MBD_FOC_SENSORLESS_MODEL_metrics\'});">Global Memory: 194(bytes) Maximum Stack: 38(bytes)</a>';
 	}
 CodeMetrics.instance = new CodeMetrics();

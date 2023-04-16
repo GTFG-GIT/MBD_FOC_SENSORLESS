@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.338
+ * Model version                  : 8.386
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Mon Apr 10 21:14:23 2023
+ * C/C++ source code generated on : Sun Apr 16 21:56:11 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -80,7 +80,7 @@ extern void MBD_FOC_SENSORLESS_MODEL_IfActionSubsystem1(int16_T rtu_In1, int16_T
 extern void MBD_FOC_SENSORLESS_MODEL_SpeedControl(real32_T rtu_Speed_Ref_PU,
   int16_T rtu_Speed_Meas_PU, int16_T rty_IdqRef_PU[2], const boolean_T
   *rtd_Enable, const boolean_T *rtd_EnableClosedLoop, const boolean_T
-  *rtd_EnableFOC, int16_T *rtd_SpeedRef,
+  *rtd_EnableFOC, real32_T *rtd_SpeedRef,
   DW_SpeedControl_MBD_FOC_SENSORLESS_MODEL_T *localDW,
   ZCE_SpeedControl_MBD_FOC_SENSORLESS_MODEL_T *localZCE);
 

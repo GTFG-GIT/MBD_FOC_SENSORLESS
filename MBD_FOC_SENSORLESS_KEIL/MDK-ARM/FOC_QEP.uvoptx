@@ -160,7 +160,12 @@
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>mbd_foc_smo_model_DW</ItemText>
+          <ItemText>MBD_FOC_SENSORLESS_MODEL_DW.SpeedRef</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>MBD_FOC_SENSORLESS_MODEL_DW.EnableFOC</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

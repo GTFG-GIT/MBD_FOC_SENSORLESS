@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.338
+ * Model version                  : 8.386
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Mon Apr 10 21:14:23 2023
+ * C/C++ source code generated on : Sun Apr 16 21:56:11 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -37,8 +37,7 @@
 
 /* Block states (default storage) for system '<Root>/Speed Control' */
 typedef struct {
-  real32_T PrevY;                      /* '<S4>/Rate Limiter2' */
-  int16_T UnitDelay_DSTATE;            /* '<S87>/Unit Delay' */
+  real32_T UnitDelay_DSTATE;           /* '<S87>/Unit Delay' */
   int16_T UnitDelay_DSTATE_f;          /* '<S84>/Unit Delay' */
 } DW_SpeedControl_MBD_FOC_SENSORLESS_MODEL_T;
 
@@ -50,6 +49,7 @@ typedef struct {
 /* Block signals (default storage) */
 typedef struct {
   int16_T u3[11];
+  real32_T u;
   int32_T DiscreteTimeIntegrator4;
   int32_T i;
   int32_T u0;
@@ -66,6 +66,7 @@ typedef struct {
 typedef struct {
   int32_T DiscreteTimeIntegrator_DSTATE;/* '<S54>/Discrete-Time Integrator' */
   int32_T DiscreteTimeIntegrator4_DSTATE;/* '<S60>/Discrete-Time Integrator4' */
+  real32_T SpeedRef;                   /* '<Root>/Data Store Memory4' */
   int16_T UnitDelay1_DSTATE;           /* '<S55>/Unit Delay1' */
   int16_T Delay_DSTATE[4];             /* '<S1>/Delay' */
   int16_T UnitDelay_DSTATE;            /* '<S55>/Unit Delay' */
@@ -84,7 +85,6 @@ typedef struct {
   volatile int16_T RateTransition5_Buffer[4];/* '<Root>/Rate Transition5' */
   int16_T Memory1_PreviousInput;       /* '<S59>/Memory1' */
   int16_T Memory_PreviousInput;        /* '<S59>/Memory' */
-  int16_T SpeedRef;                    /* '<Root>/Data Store Memory4' */
   boolean_T Delay_DSTATE_k;            /* '<S57>/Delay' */
   volatile int8_T RateTransition5_ActiveBufIdx;/* '<Root>/Rate Transition5' */
   uint8_T is_c3_MBD_FOC_SENSORLESS_MODEL;/* '<S3>/Chart' */
@@ -142,7 +142,7 @@ extern const ConstP_MBD_FOC_SENSORLESS_MODEL_T MBD_FOC_SENSORLESS_MODEL_ConstP;
 /* Model entry point functions */
 extern void MbdFocSensorlessInit(void);
 extern void MbdFocSensorlessCurrentCtrl(void);
-extern void MbdFocSpdCtrl(void);
+extern void MBD_FOC_SENSORLESS_MODEL_step1(void);
 extern void MBD_FOC_SENSORLESS_MODEL_terminate(void);
 
 /* Exported data declaration */
@@ -152,6 +152,7 @@ extern void MBD_FOC_SENSORLESS_MODEL_terminate(void);
 extern volatile uint16_T Pwm1Duty;     /* '<Root>/Data Store Memory5' */
 extern volatile uint16_T Pwm2Duty;     /* '<Root>/Data Store Memory7' */
 extern volatile uint16_T Pwm3Duty;     /* '<Root>/Data Store Memory8' */
+extern volatile real32_T VelRef;       /* '<Root>/Data Store Memory11' */
 extern volatile int16_T smoAnglePU;    /* '<Root>/Data Store Memory9' */
 
 /* Real-time Model object */
@@ -218,6 +219,7 @@ extern RT_MODEL_MBD_FOC_SENSORLESS_MODEL_T *const MBD_FOC_SENSORLESS_MODEL_M;
  * Block '<S3>/Data Type Conversion1' : Eliminate redundant data type conversion
  * Block '<S3>/Data Type Conversion2' : Eliminate redundant data type conversion
  * Block '<S3>/Data Type Conversion3' : Eliminate redundant data type conversion
+ * Block '<S4>/Data Type Conversion1' : Eliminate redundant data type conversion
  * Block '<S21>/enableInportSatLim' : Unused code path elimination
  * Block '<S21>/enableInportSatMethod' : Unused code path elimination
  * Block '<S16>/ReplaceInport_satLim' : Unused code path elimination
