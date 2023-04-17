@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.386
+ * Model version                  : 8.394
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sun Apr 16 21:56:11 2023
+ * C/C++ source code generated on : Mon Apr 17 20:55:33 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -31,78 +31,29 @@
 void rt_OneStep(void);
 void rt_OneStep(void)
 {
-  static boolean_T OverrunFlags[2] = { 0, 0 };
-
-  static boolean_T eventFlags[2] = { 0, 0 };/* Model has 2 rates */
-
-  static int_T taskCounter[2] = { 0, 0 };
+  static boolean_T OverrunFlag = false;
 
   /* Disable interrupts here */
 
-  /* Check base rate for overrun */
-  if (OverrunFlags[0]) {
+  /* Check for overrun */
+  if (OverrunFlag) {
     rtmSetErrorStatus(MBD_FOC_SENSORLESS_MODEL_M, "Overrun");
     return;
   }
 
-  OverrunFlags[0] = true;
+  OverrunFlag = true;
 
   /* Save FPU context here (if necessary) */
   /* Re-enable timer or interrupt here */
+  /* Set model inputs here */
 
-  /*
-   * For a bare-board target (i.e., no operating system), the
-   * following code checks whether any subrate overruns,
-   * and also sets the rates that need to run this time step.
-   */
-  if (taskCounter[1] == 0) {
-    if (eventFlags[1]) {
-      OverrunFlags[0] = false;
-      OverrunFlags[1] = true;
-
-      /* Sampling too fast */
-      rtmSetErrorStatus(MBD_FOC_SENSORLESS_MODEL_M, "Overrun");
-      return;
-    }
-
-    eventFlags[1] = true;
-  }
-
-  taskCounter[1]++;
-  if (taskCounter[1] == 30) {
-    taskCounter[1]= 0;
-  }
-
-  /* Set model inputs associated with base rate here */
-
-  /* Step the model for base rate */
+  /* Step the model */
   MbdFocSensorlessCurrentCtrl();
 
   /* Get model outputs here */
 
-  /* Indicate task for base rate complete */
-  OverrunFlags[0] = false;
-
-  /* If task 1 is running, do not run any lower priority task */
-  if (OverrunFlags[1]) {
-    return;
-  }
-
-  /* Step the model for subrate */
-  if (eventFlags[1]) {
-    OverrunFlags[1] = true;
-
-    /* Set model inputs associated with subrates here */
-
-    /* Step the model for subrate 1 */
-    MBD_FOC_SENSORLESS_MODEL_step1();
-
-    /* Get model outputs here */
-
-    /* Indicate task complete for subrate */
-    OverrunFlags[1] = false;
-    eventFlags[1] = false;
-  }
+  /* Indicate task complete */
+  OverrunFlag = false;
 
   /* Disable interrupts here */
   /* Restore FPU context here (if necessary) */
