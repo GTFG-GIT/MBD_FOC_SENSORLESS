@@ -59,7 +59,7 @@ inverter.opamp_Gain    = inverter.OpampFb_Rf/inverter.opampInput_R; % // Opamp G
 
 %% Open loop reference values
 T_Ref_openLoop          = 1;                    % Sec // Time for open-loop start-up
-Speed_Ref_openLoop      = 500;                  % RPM // Speed referene for open-loop start-up
+Speed_Ref_openLoop      = 300;                  % RPM // Speed referene for open-loop start-up
 Iq_Ref_openLoop         = 0.0;                  % A   // Iq referene for open-loop start-up
 
 %% My PU base values
@@ -75,16 +75,23 @@ Phibase = Ubase/Wbase;
 %% Current loop gain setup
 curPI.KpD = (2*pi/25)*pmsm.Ld*Ibase/(Ts*Ubase);
 curPI.KiD = (pmsm.Rs/pmsm.Ld)*Ts;
-curPI.UpLimitD = 0.95;
-curPI.LoLimitD = -0.95;
-curPI.UpLimitIntgD = 0.8;
-curPI.LoLimitIntgD = -0.8;
+curPI.UpLimitD = 0.99;
+curPI.LoLimitD = -0.99;
+curPI.UpLimitIntgD = 0.99;
+curPI.LoLimitIntgD = -0.99;
 
 curPI.KpQ = (2*pi/25)*pmsm.Ld*Ibase/(Ts*Ubase);
 curPI.KiQ = (pmsm.Rs/pmsm.Ld)*Ts;
-curPI.UpLimitQ = 0.95;
-curPI.LoLimitQ = -0.95;
-curPI.UpLimitIntgQ = 0.8;
-curPI.LoLimitIntgQ = -0.8;
+curPI.UpLimitQ = 0.99;
+curPI.LoLimitQ = -0.99;
+curPI.UpLimitIntgQ = 0.99;
+curPI.LoLimitIntgQ = -0.99;
+%% Spd PI
+spd.Kp = 1.6;
+spd.Ki = 0.11;
+spd.UpLimit = 0.99;
+spd.LoLimit = -0.99;
+spd.UpLimitIntg = 0.99;
+spd.LoLimitIntg = -0.99;
 %% Flux observer parameters
-FluxGama = 1.0;
+FluxGama = 1;

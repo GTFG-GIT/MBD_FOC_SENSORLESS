@@ -7,7 +7,7 @@ function CodeMetrics() {
 	 this.metricsArray.var["MBD_FOC_SENSORLESS_MODEL_B"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
 	size: 64};
 	 this.metricsArray.var["MBD_FOC_SENSORLESS_MODEL_DW"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
-	size: 72};
+	size: 76};
 	 this.metricsArray.var["MBD_FOC_SENSORLESS_MODEL_PrevZCX"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
 	size: 3};
 	 this.metricsArray.var["Pwm1Duty"] = {file: "D:\\WorkSpace\\mat_work\\MBD\\MBD_FOC_SENSORLESS\\MBD_FOC_SENSORLESS_MODEL\\MBD_FOC_SENSORLESS_MODEL_ert_rtw\\MBD_FOC_SENSORLESS_MODEL.c",
@@ -126,6 +126,6 @@ function CodeMetrics() {
 			 data.type = "var";
 		 }
 	 return data; }; 
-	 this.codeMetricsSummary = '<a href="javascript:void(0)" onclick="return postParentWindowMessage({message:\'gotoReportPage\', pageName:\'MBD_FOC_SENSORLESS_MODEL_metrics\'});">Global Memory: 191(bytes) Maximum Stack: 39(bytes)</a>';
+	 this.codeMetricsSummary = '<a href="javascript:void(0)" onclick="return postParentWindowMessage({message:\'gotoReportPage\', pageName:\'MBD_FOC_SENSORLESS_MODEL_metrics\'});">Global Memory: 195(bytes) Maximum Stack: 39(bytes)</a>';
 	}
 CodeMetrics.instance = new CodeMetrics();

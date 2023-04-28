@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.394
+ * Model version                  : 8.405
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Mon Apr 17 20:55:33 2023
+ * C/C++ source code generated on : Fri Apr 28 20:18:20 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -314,10 +314,10 @@ void MbdFocSensorlessCurrentCtrl(void)
   int16_T rtb_Sum4_fv;
   int16_T rtb_Sum5;
   int16_T rtb_Sum6;
-  int16_T rtb_Switch2_k3;
-  int16_T rtb_Switch2_o;
+  int16_T rtb_Switch2_l;
   int16_T rtb_Switch_g0_idx_1;
   int16_T rtb_ToPerUnit_idx_0;
+  int16_T rtb_Up;
   uint16_T rtb_Get_Integer;
   uint16_T rtb_Saturationlowsideturnon_idx_1;
   uint16_T rtb_Saturationlowsideturnon_idx_2;
@@ -607,7 +607,7 @@ void MbdFocSensorlessCurrentCtrl(void)
      default:
       /* case IN_OpenLoop: */
       if ((MBD_FOC_SENSORLESS_MODEL_DW.temporalCounter_i1 >= 20000U) &&
-          (rtb_Gain9 >= 1775)) {
+          (rtb_Gain9 >= 410)) {
         MBD_FOC_SENSORLESS_MODEL_DW.is_c3_MBD_FOC_SENSORLESS_MODEL =
           MBD_FOC_SENSORLESS_MODEL_IN_ClosedLoop;
         MBD_FOC_SENSORLESS_MODEL_DW.temporalCounter_i1 = 0U;
@@ -641,7 +641,7 @@ void MbdFocSensorlessCurrentCtrl(void)
      */
     rtb_NOT = (MBD_FOC_SENSORLESS_MODEL_B.SpeedCtrl == 0);
 
-    /* DiscreteIntegrator: '<S94>/Discrete-Time Integrator' */
+    /* DiscreteIntegrator: '<S98>/Discrete-Time Integrator' */
     if (rtb_NOT ||
         (MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_PrevResetState != 0))
     {
@@ -656,7 +656,7 @@ void MbdFocSensorlessCurrentCtrl(void)
      */
     if (MBD_FOC_SENSORLESS_MODEL_DW.EnableFOC) {
       /* Saturate: '<S5>/Saturation' incorporates:
-       *  DiscreteIntegrator: '<S94>/Discrete-Time Integrator'
+       *  DiscreteIntegrator: '<S98>/Discrete-Time Integrator'
        */
       if (MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE > 1.0F) {
         MBD_FOC_SENSORLESS_MODEL_DW.SpeedRef = 1.0F;
@@ -675,25 +675,34 @@ void MbdFocSensorlessCurrentCtrl(void)
 
     /* End of Switch: '<S84>/Switch' */
 
-    /* Sum: '<S91>/Add1' incorporates:
-     *  Constant: '<S91>/Filter_Constant'
-     *  Constant: '<S91>/One'
+    /* Sum: '<S92>/Add1' incorporates:
+     *  Constant: '<S92>/Filter_Constant'
+     *  Constant: '<S92>/One'
      *  DataStoreWrite: '<S5>/Data Store Write'
-     *  Product: '<S91>/Product'
-     *  Product: '<S91>/Product1'
-     *  UnitDelay: '<S91>/Unit Delay'
+     *  Product: '<S92>/Product'
+     *  Product: '<S92>/Product1'
+     *  UnitDelay: '<S92>/Unit Delay'
      */
     MBD_FOC_SENSORLESS_MODEL_B.Add1_m = MBD_FOC_SENSORLESS_MODEL_DW.SpeedRef *
-      0.03F + 0.97F * MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE;
+      0.6F + 0.4F * MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE;
 
-    /* Product: '<S88>/Up' incorporates:
-     *  Constant: '<S82>/Kp1'
+    /* Sum: '<S95>/Add1' incorporates:
      *  Gain: '<S58>/Gain9'
-     *  Sum: '<S88>/Add'
+     *  Product: '<S95>/Product'
+     *  Product: '<S95>/Product1'
+     *  UnitDelay: '<S95>/Unit Delay'
+     */
+    rtb_Gain9 = (int16_T)(((rtb_Gain9 * 4915) >> 13) + ((3277 *
+      MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_e) >> 13));
+
+    /* Product: '<S89>/Up' incorporates:
+     *  Constant: '<S82>/Kp1'
+     *  Sum: '<S89>/Add'
+     *  Sum: '<S95>/Add1'
      */
     MBD_FOC_SENSORLESS_MODEL_B.Sum_c = (real32_T)floor
       ((MBD_FOC_SENSORLESS_MODEL_B.Add1_m - (real32_T)rtb_Gain9 * 6.10351562E-5F)
-       * 0.650024414F * 16384.0F);
+       * 1.59997559F * 16384.0F);
     if (rtIsNaNF(MBD_FOC_SENSORLESS_MODEL_B.Sum_c) || rtIsInfF
         (MBD_FOC_SENSORLESS_MODEL_B.Sum_c)) {
       MBD_FOC_SENSORLESS_MODEL_B.Sum_c = 0.0F;
@@ -702,62 +711,63 @@ void MbdFocSensorlessCurrentCtrl(void)
         (MBD_FOC_SENSORLESS_MODEL_B.Sum_c, 65536.0);
     }
 
-    rtb_DataTypeConversion3 = (int16_T)(MBD_FOC_SENSORLESS_MODEL_B.Sum_c < 0.0F ?
-      (int32_T)(int16_T)-(int16_T)(uint16_T)-MBD_FOC_SENSORLESS_MODEL_B.Sum_c :
-      (int32_T)(int16_T)(uint16_T)MBD_FOC_SENSORLESS_MODEL_B.Sum_c);
+    rtb_Up = (int16_T)(MBD_FOC_SENSORLESS_MODEL_B.Sum_c < 0.0F ? (int32_T)
+                       (int16_T)-(int16_T)(uint16_T)
+                       -MBD_FOC_SENSORLESS_MODEL_B.Sum_c : (int32_T)(int16_T)
+                       (uint16_T)MBD_FOC_SENSORLESS_MODEL_B.Sum_c);
 
-    /* End of Product: '<S88>/Up' */
+    /* End of Product: '<S89>/Up' */
 
-    /* Sum: '<S88>/Add2' incorporates:
-     *  Product: '<S88>/Product1'
-     *  Product: '<S88>/Up'
-     *  UnitDelay: '<S88>/Unit Delay'
+    /* Sum: '<S89>/Add2' incorporates:
+     *  Product: '<S89>/Product1'
+     *  Product: '<S89>/Up'
+     *  UnitDelay: '<S89>/Unit Delay'
      */
-    rtb_Gain9 = (int16_T)(((rtb_DataTypeConversion3 * 19) >> 11) +
-                          MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_n);
+    rtb_DataTypeConversion3 = (int16_T)(((rtb_Up * 901) >> 13) +
+      MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_n);
 
-    /* Switch: '<S92>/Switch2' incorporates:
+    /* Switch: '<S96>/Switch2' incorporates:
      *  Constant: '<S82>/Ki3'
-     *  RelationalOperator: '<S92>/LowerRelop1'
-     *  RelationalOperator: '<S92>/UpperRelop'
-     *  Sum: '<S88>/Add2'
-     *  Switch: '<S92>/Switch'
+     *  RelationalOperator: '<S96>/LowerRelop1'
+     *  RelationalOperator: '<S96>/UpperRelop'
+     *  Sum: '<S89>/Add2'
+     *  Switch: '<S96>/Switch'
      */
-    if (rtb_Gain9 > 13107) {
-      rtb_Gain9 = 13107;
-    } else if (rtb_Gain9 < -13107) {
-      /* Switch: '<S92>/Switch' incorporates:
+    if (rtb_DataTypeConversion3 > 16220) {
+      rtb_DataTypeConversion3 = 16220;
+    } else if (rtb_DataTypeConversion3 < -16220) {
+      /* Switch: '<S96>/Switch' incorporates:
        *  Constant: '<S82>/Ki4'
-       *  Switch: '<S92>/Switch2'
+       *  Switch: '<S96>/Switch2'
        */
-      rtb_Gain9 = -13107;
+      rtb_DataTypeConversion3 = -16220;
     }
 
-    /* End of Switch: '<S92>/Switch2' */
+    /* End of Switch: '<S96>/Switch2' */
 
-    /* Sum: '<S94>/Sum' incorporates:
+    /* Sum: '<S98>/Sum' incorporates:
      *  DataStoreRead: '<Root>/Data Store Read2'
-     *  DiscreteIntegrator: '<S94>/Discrete-Time Integrator'
+     *  DiscreteIntegrator: '<S98>/Discrete-Time Integrator'
      *  Gain: '<S5>/Gain'
      */
     MBD_FOC_SENSORLESS_MODEL_B.Sum_c = 0.000416666677F * VelRef -
       MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE;
 
-    /* Switch: '<S95>/Switch2' incorporates:
-     *  RelationalOperator: '<S95>/LowerRelop1'
-     *  RelationalOperator: '<S95>/UpperRelop'
-     *  Switch: '<S95>/Switch'
+    /* Switch: '<S99>/Switch2' incorporates:
+     *  RelationalOperator: '<S99>/LowerRelop1'
+     *  RelationalOperator: '<S99>/UpperRelop'
+     *  Switch: '<S99>/Switch'
      */
     if (MBD_FOC_SENSORLESS_MODEL_B.Sum_c >
         MBD_FOC_SENSORLESS_MODEL_ConstB.Product) {
       MBD_FOC_SENSORLESS_MODEL_B.Sum_c = MBD_FOC_SENSORLESS_MODEL_ConstB.Product;
     } else if (MBD_FOC_SENSORLESS_MODEL_B.Sum_c <
                MBD_FOC_SENSORLESS_MODEL_ConstB.Gain) {
-      /* Switch: '<S95>/Switch' */
+      /* Switch: '<S99>/Switch' */
       MBD_FOC_SENSORLESS_MODEL_B.Sum_c = MBD_FOC_SENSORLESS_MODEL_ConstB.Gain;
     }
 
-    /* End of Switch: '<S95>/Switch2' */
+    /* End of Switch: '<S99>/Switch2' */
 
     /* Switch: '<S5>/Switch2' incorporates:
      *  DataStoreRead: '<S5>/Data Store Read5'
@@ -769,39 +779,39 @@ void MbdFocSensorlessCurrentCtrl(void)
        *  Switch: '<S5>/Switch1'
        */
       if (MBD_FOC_SENSORLESS_MODEL_B.SpeedCtrl != 0) {
-        /* Sum: '<S88>/Add1' incorporates:
-         *  Product: '<S88>/Up'
-         *  Switch: '<S92>/Switch2'
+        /* Sum: '<S89>/Add1' incorporates:
+         *  Product: '<S89>/Up'
+         *  Switch: '<S96>/Switch2'
          */
-        rtb_DataTypeConversion3 += rtb_Gain9;
+        rtb_Up += rtb_DataTypeConversion3;
 
-        /* Switch: '<S93>/Switch2' incorporates:
-         *  RelationalOperator: '<S93>/LowerRelop1'
-         *  RelationalOperator: '<S93>/UpperRelop'
-         *  Sum: '<S88>/Add1'
-         *  Switch: '<S93>/Switch'
+        /* Switch: '<S97>/Switch2' incorporates:
+         *  RelationalOperator: '<S97>/LowerRelop1'
+         *  RelationalOperator: '<S97>/UpperRelop'
+         *  Sum: '<S89>/Add1'
+         *  Switch: '<S97>/Switch'
          */
-        if (rtb_DataTypeConversion3 > 16384) {
+        if (rtb_Up > 16220) {
           /* Switch: '<S5>/Switch' incorporates:
            *  Constant: '<S82>/Ki5'
            */
-          rtb_DataTypeConversion3 = 16384;
-        } else if (rtb_DataTypeConversion3 < -16384) {
-          /* Switch: '<S93>/Switch' incorporates:
+          rtb_Up = 16220;
+        } else if (rtb_Up < -16220) {
+          /* Switch: '<S97>/Switch' incorporates:
            *  Constant: '<S82>/Ki6'
            *  Switch: '<S5>/Switch'
            */
-          rtb_DataTypeConversion3 = -16384;
+          rtb_Up = -16220;
         }
 
-        /* End of Switch: '<S93>/Switch2' */
+        /* End of Switch: '<S97>/Switch2' */
 
         /* Switch: '<S5>/Switch2' incorporates:
          *  Constant: '<S5>/Id_ref1'
          */
         MBD_FOC_SENSORLESS_MODEL_B.Switch2[0] = 0;
       } else {
-        rtb_DataTypeConversion3 = 0;
+        rtb_Up = 0;
 
         /* Switch: '<S5>/Switch2' incorporates:
          *  Constant: '<S5>/Id_ref'
@@ -814,7 +824,7 @@ void MbdFocSensorlessCurrentCtrl(void)
       /* End of Switch: '<S5>/Switch' */
 
       /* Switch: '<S5>/Switch2' */
-      MBD_FOC_SENSORLESS_MODEL_B.Switch2[1] = rtb_DataTypeConversion3;
+      MBD_FOC_SENSORLESS_MODEL_B.Switch2[1] = rtb_Up;
     } else {
       /* Switch: '<S5>/Switch2' incorporates:
        *  Constant: '<S5>/Id_ref2'
@@ -833,7 +843,7 @@ void MbdFocSensorlessCurrentCtrl(void)
 
     /* End of Outputs for SubSystem: '<S85>/Triggered Subsystem' */
 
-    /* Update for DiscreteIntegrator: '<S94>/Discrete-Time Integrator' incorporates:
+    /* Update for DiscreteIntegrator: '<S98>/Discrete-Time Integrator' incorporates:
      *  Constant: '<S85>/Constant'
      */
     MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE +=
@@ -841,29 +851,34 @@ void MbdFocSensorlessCurrentCtrl(void)
     MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_PrevResetState = (int8_T)
       rtb_NOT;
 
-    /* Update for UnitDelay: '<S91>/Unit Delay' */
+    /* Update for UnitDelay: '<S92>/Unit Delay' */
     MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE =
       MBD_FOC_SENSORLESS_MODEL_B.Add1_m;
 
-    /* Switch: '<S88>/Switch2' incorporates:
+    /* Update for UnitDelay: '<S95>/Unit Delay' incorporates:
+     *  Sum: '<S95>/Add1'
+     */
+    MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_e = rtb_Gain9;
+
+    /* Switch: '<S89>/Switch2' incorporates:
      *  DataStoreRead: '<S82>/Data Store Read2'
      *  DataTypeConversion: '<S4>/Data Type Conversion4'
      *  Logic: '<S82>/AND'
      */
     if ((MBD_FOC_SENSORLESS_MODEL_B.SpeedCtrl != 0) &&
         MBD_FOC_SENSORLESS_MODEL_DW.Enable) {
-      /* Update for UnitDelay: '<S88>/Unit Delay' incorporates:
-       *  Switch: '<S92>/Switch2'
+      /* Update for UnitDelay: '<S89>/Unit Delay' incorporates:
+       *  Switch: '<S96>/Switch2'
        */
-      MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_n = rtb_Gain9;
+      MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_n = rtb_DataTypeConversion3;
     } else {
-      /* Update for UnitDelay: '<S88>/Unit Delay' incorporates:
-       *  Constant: '<S88>/Constant'
+      /* Update for UnitDelay: '<S89>/Unit Delay' incorporates:
+       *  Constant: '<S89>/Constant'
        */
       MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_n = 0;
     }
 
-    /* End of Switch: '<S88>/Switch2' */
+    /* End of Switch: '<S89>/Switch2' */
   }
 
   MBD_FOC_SENSORLESS_MODEL_PrevZCX.TriggeredSubsystem_Trig_ZCE = (ZCSigState)
@@ -980,16 +995,15 @@ void MbdFocSensorlessCurrentCtrl(void)
      *  Switch: '<S41>/Switch2'
      *  UnitDelay: '<S59>/Unit Delay'
      */
-    rtb_Switch2_k3 = (int16_T)(MBD_FOC_SENSORLESS_MODEL_B.Input +
-      MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_nq);
+    rtb_Up = (int16_T)(MBD_FOC_SENSORLESS_MODEL_B.Input +
+                       MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_nq);
 
     /* Sum: '<S60>/Add1' incorporates:
      *  DataTypeConversion: '<S60>/Data Type Conversion'
      *  DataTypeConversion: '<S60>/Data Type Conversion1'
      *  Switch: '<S41>/Switch2'
      */
-    MBD_FOC_SENSORLESS_MODEL_B.Add1 = (int16_T)(rtb_Switch2_k3 -
-      ((rtb_Switch2_k3 >> 14) << 14));
+    MBD_FOC_SENSORLESS_MODEL_B.Add1 = (int16_T)(rtb_Up - ((rtb_Up >> 14) << 14));
 
     /* Update for Delay: '<S60>/Delay' incorporates:
      *  Constant: '<S60>/Constant'
@@ -1098,7 +1112,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S45>/Sum4'
    */
   MBD_FOC_SENSORLESS_MODEL_B.u0 =
-    MBD_FOC_SENSORLESS_MODEL_ConstP.pooled12[rtb_Get_Integer];
+    MBD_FOC_SENSORLESS_MODEL_ConstP.pooled9[rtb_Get_Integer];
 
   /* Sum: '<S45>/Sum4' incorporates:
    *  Constant: '<S17>/offset'
@@ -1110,7 +1124,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S71>/Sum5'
    */
   rtb_Sum4_fv = (int16_T)((int16_T)(((int16_T)
-    (MBD_FOC_SENSORLESS_MODEL_ConstP.pooled12[(int32_T)(rtb_Get_Integer + 1U)] -
+    (MBD_FOC_SENSORLESS_MODEL_ConstP.pooled9[(int32_T)(rtb_Get_Integer + 1U)] -
      MBD_FOC_SENSORLESS_MODEL_B.u0) * rtb_Sum5) >> 14) +
     MBD_FOC_SENSORLESS_MODEL_B.u0);
 
@@ -1121,7 +1135,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S17>/Sum'
    *  Sum: '<S45>/Sum6'
    */
-  MBD_FOC_SENSORLESS_MODEL_B.u0 = MBD_FOC_SENSORLESS_MODEL_ConstP.pooled12
+  MBD_FOC_SENSORLESS_MODEL_B.u0 = MBD_FOC_SENSORLESS_MODEL_ConstP.pooled9
     [(int32_T)(rtb_Get_Integer + 200U)];
 
   /* Sum: '<S45>/Sum6' incorporates:
@@ -1134,7 +1148,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S71>/Sum5'
    */
   rtb_Sum6 = (int16_T)((int16_T)(((int16_T)
-    (MBD_FOC_SENSORLESS_MODEL_ConstP.pooled12[(int32_T)(rtb_Get_Integer + 201U)]
+    (MBD_FOC_SENSORLESS_MODEL_ConstP.pooled9[(int32_T)(rtb_Get_Integer + 201U)]
      - MBD_FOC_SENSORLESS_MODEL_B.u0) * rtb_Sum5) >> 14) +
                        MBD_FOC_SENSORLESS_MODEL_B.u0);
 
@@ -1164,8 +1178,8 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Switch: '<S38>/Switch2'
    *  UnitDelay: '<S40>/Unit Delay'
    */
-  rtb_Switch2_k3 = (int16_T)(((rtb_DataTypeConversion3 * 407) >> 13) +
-    MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_c);
+  rtb_Up = (int16_T)(((rtb_DataTypeConversion3 * 407) >> 13) +
+                     MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_c);
 
   /* Switch: '<S41>/Switch2' incorporates:
    *  Constant: '<S21>/Ki1'
@@ -1174,14 +1188,14 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S40>/Add2'
    *  Switch: '<S41>/Switch'
    */
-  if (rtb_Switch2_k3 > 13107) {
-    rtb_Switch2_k3 = 13107;
-  } else if (rtb_Switch2_k3 < -13107) {
+  if (rtb_Up > 16220) {
+    rtb_Up = 16220;
+  } else if (rtb_Up < -16220) {
     /* Switch: '<S41>/Switch' incorporates:
      *  Constant: '<S21>/Ki2'
      *  Switch: '<S41>/Switch2'
      */
-    rtb_Switch2_k3 = -13107;
+    rtb_Up = -16220;
   }
 
   /* End of Switch: '<S41>/Switch2' */
@@ -1190,7 +1204,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Switch: '<S38>/Switch2'
    *  Switch: '<S41>/Switch2'
    */
-  rtb_DataTypeConversion3 += rtb_Switch2_k3;
+  rtb_DataTypeConversion3 += rtb_Up;
 
   /* Switch: '<S42>/Switch2' incorporates:
    *  Constant: '<S21>/Ki4'
@@ -1199,16 +1213,16 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S40>/Add1'
    *  Switch: '<S42>/Switch'
    */
-  if (rtb_DataTypeConversion3 > 15565) {
-    rtb_Switch2_o = 15565;
-  } else if (rtb_DataTypeConversion3 < -15565) {
+  if (rtb_DataTypeConversion3 > 16220) {
+    rtb_Switch2_l = 16220;
+  } else if (rtb_DataTypeConversion3 < -16220) {
     /* Switch: '<S42>/Switch' incorporates:
      *  Constant: '<S21>/Ki3'
      *  Switch: '<S42>/Switch2'
      */
-    rtb_Switch2_o = -15565;
+    rtb_Switch2_l = -16220;
   } else {
-    rtb_Switch2_o = rtb_DataTypeConversion3;
+    rtb_Switch2_l = rtb_DataTypeConversion3;
   }
 
   /* End of Switch: '<S42>/Switch2' */
@@ -1248,14 +1262,14 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S37>/Add2'
    *  Switch: '<S38>/Switch'
    */
-  if (rtb_DataTypeConversion3 > 13107) {
-    rtb_DataTypeConversion3 = 13107;
-  } else if (rtb_DataTypeConversion3 < -13107) {
+  if (rtb_DataTypeConversion3 > 16220) {
+    rtb_DataTypeConversion3 = 16220;
+  } else if (rtb_DataTypeConversion3 < -16220) {
     /* Switch: '<S38>/Switch' incorporates:
      *  Constant: '<S20>/Ki2'
      *  Switch: '<S38>/Switch2'
      */
-    rtb_DataTypeConversion3 = -13107;
+    rtb_DataTypeConversion3 = -16220;
   }
 
   /* End of Switch: '<S38>/Switch2' */
@@ -1273,14 +1287,14 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S37>/Add1'
    *  Switch: '<S39>/Switch'
    */
-  if (rtb_Sum5 > 15565) {
-    rtb_Sum5 = 15565;
-  } else if (rtb_Sum5 < -15565) {
+  if (rtb_Sum5 > 16220) {
+    rtb_Sum5 = 16220;
+  } else if (rtb_Sum5 < -16220) {
     /* Switch: '<S39>/Switch' incorporates:
      *  Constant: '<S20>/Ki3'
      *  Switch: '<S39>/Switch2'
      */
-    rtb_Sum5 = -15565;
+    rtb_Sum5 = -16220;
   }
 
   /* End of Switch: '<S39>/Switch2' */
@@ -1291,8 +1305,8 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Switch: '<S39>/Switch2'
    *  Switch: '<S42>/Switch2'
    */
-  rtb_Sum1 = (int16_T)(((rtb_Sum5 * rtb_Sum5) >> 14) + ((rtb_Switch2_o *
-    rtb_Switch2_o) >> 14));
+  rtb_Sum1 = (int16_T)(((rtb_Sum5 * rtb_Sum5) >> 14) + ((rtb_Switch2_l *
+    rtb_Switch2_l) >> 14));
 
   /* Outputs for IfAction SubSystem: '<S19>/D-Q Equivalence' incorporates:
    *  ActionPort: '<S22>/Action Port'
@@ -1344,7 +1358,7 @@ void MbdFocSensorlessCurrentCtrl(void)
      */
     rtb_Sum5 = (int16_T)((((rtb_Sum5 * 15565) >> 14) * (int16_T)
                           MBD_FOC_SENSORLESS_MODEL_B.u0) >> 14);
-    rtb_Switch2_o = (int16_T)((((rtb_Switch2_o * 15565) >> 14) * (int16_T)
+    rtb_Switch2_l = (int16_T)((((rtb_Switch2_l * 15565) >> 14) * (int16_T)
       MBD_FOC_SENSORLESS_MODEL_B.u0) >> 14);
 
     /* End of Outputs for SubSystem: '<S22>/Limiter' */
@@ -1365,8 +1379,8 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S45>/Sum6'
    */
   rtb_Sum1 = (int16_T)((int16_T)((rtb_Sum5 * rtb_Sum6) >> 14) - (int16_T)
-                       ((rtb_Switch2_o * rtb_Sum4_fv) >> 14));
-  rtb_Switch_g0_idx_1 = (int16_T)((int16_T)((rtb_Switch2_o * rtb_Sum6) >> 14) +
+                       ((rtb_Switch2_l * rtb_Sum4_fv) >> 14));
+  rtb_Switch_g0_idx_1 = (int16_T)((int16_T)((rtb_Switch2_l * rtb_Sum6) >> 14) +
     (int16_T)((rtb_Sum5 * rtb_Sum4_fv) >> 14));
 
   /* End of Outputs for SubSystem: '<S8>/Inverse Park Transform' */
@@ -1401,7 +1415,7 @@ void MbdFocSensorlessCurrentCtrl(void)
        *  MinMax: '<S53>/Max'
        *  Switch: '<S11>/Switch for rotor alignment'
        */
-      rtb_Switch2_o = (int16_T)((14189 * rtb_Switch_g0_idx_1) >> 14);
+      rtb_Switch2_l = (int16_T)((14189 * rtb_Switch_g0_idx_1) >> 14);
 
       /* Gain: '<S55>/one_by_two' incorporates:
        *  AlgorithmDescriptorDelegate generated from: '<S15>/a16'
@@ -1417,14 +1431,14 @@ void MbdFocSensorlessCurrentCtrl(void)
        *  MinMax: '<S53>/Max'
        *  Switch: '<S11>/Switch for rotor alignment'
        */
-      rtb_Sum6 = (int16_T)(-rtb_Sum4_fv - rtb_Switch2_o);
+      rtb_Sum6 = (int16_T)(-rtb_Sum4_fv - rtb_Switch2_l);
 
       /* Sum: '<S55>/add_b' incorporates:
        *  Gain: '<S53>/one_by_two'
        *  MinMax: '<S53>/Max'
        *  Switch: '<S11>/Switch for rotor alignment'
        */
-      rtb_Switch2_o -= rtb_Sum4_fv;
+      rtb_Switch2_l -= rtb_Sum4_fv;
 
       /* Outputs for Atomic SubSystem: '<S8>/Inverse Park Transform' */
       /* MinMax: '<S53>/Min' incorporates:
@@ -1432,10 +1446,10 @@ void MbdFocSensorlessCurrentCtrl(void)
        *  Sum: '<S55>/add_b'
        *  Switch: '<S11>/Switch for rotor alignment'
        */
-      if (rtb_Sum1 <= rtb_Switch2_o) {
+      if (rtb_Sum1 <= rtb_Switch2_l) {
         rtb_Sum5 = rtb_Sum1;
       } else {
-        rtb_Sum5 = rtb_Switch2_o;
+        rtb_Sum5 = rtb_Switch2_l;
       }
 
       /* MinMax: '<S53>/Max' incorporates:
@@ -1444,10 +1458,10 @@ void MbdFocSensorlessCurrentCtrl(void)
        *  Sum: '<S55>/add_c'
        *  Switch: '<S11>/Switch for rotor alignment'
        */
-      if (rtb_Sum1 >= rtb_Switch2_o) {
+      if (rtb_Sum1 >= rtb_Switch2_l) {
         rtb_Sum4_fv = rtb_Sum1;
       } else {
-        rtb_Sum4_fv = rtb_Switch2_o;
+        rtb_Sum4_fv = rtb_Switch2_l;
       }
 
       /* End of Outputs for SubSystem: '<S8>/Inverse Park Transform' */
@@ -1491,7 +1505,7 @@ void MbdFocSensorlessCurrentCtrl(void)
 
       /* End of Outputs for SubSystem: '<S8>/Inverse Park Transform' */
       rtb_Saturationlowsideturnon_idx_1 = (uint16_T)(((((int16_T)(((int16_T)
-        (rtb_Switch2_o + rtb_Sum4_fv) * 18919) >> 14) >> 1) + 8192) * 1601) >>
+        (rtb_Switch2_l + rtb_Sum4_fv) * 18919) >> 14) >> 1) + 8192) * 1601) >>
         14);
       rtb_Saturationlowsideturnon_idx_2 = (uint16_T)(((((int16_T)(((int16_T)
         (rtb_Sum4_fv + rtb_Sum6) * 18919) >> 14) >> 1) + 8192) * 1601) >> 14);
@@ -1753,7 +1767,7 @@ void MbdFocSensorlessCurrentCtrl(void)
     /* Update for UnitDelay: '<S40>/Unit Delay' incorporates:
      *  Switch: '<S41>/Switch2'
      */
-    MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_c = rtb_Switch2_k3;
+    MBD_FOC_SENSORLESS_MODEL_DW.UnitDelay_DSTATE_c = rtb_Up;
 
     /* Update for UnitDelay: '<S37>/Unit Delay' incorporates:
      *  Switch: '<S38>/Switch2'
@@ -1780,7 +1794,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S66>/Sum'
    *  Sum: '<S71>/Sum6'
    */
-  MBD_FOC_SENSORLESS_MODEL_B.u0 = MBD_FOC_SENSORLESS_MODEL_ConstP.pooled12
+  MBD_FOC_SENSORLESS_MODEL_B.u0 = MBD_FOC_SENSORLESS_MODEL_ConstP.pooled9
     [(int32_T)(rtb_Get_Integer + 200U)];
 
   /* Update for Memory: '<S62>/Memory1' incorporates:
@@ -1794,7 +1808,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S71>/Sum6'
    */
   MBD_FOC_SENSORLESS_MODEL_DW.Memory1_PreviousInput = (int16_T)((int16_T)
-    (((int16_T)(MBD_FOC_SENSORLESS_MODEL_ConstP.pooled12[(int32_T)
+    (((int16_T)(MBD_FOC_SENSORLESS_MODEL_ConstP.pooled9[(int32_T)
                 (rtb_Get_Integer + 201U)] - MBD_FOC_SENSORLESS_MODEL_B.u0) *
       rtb_DataTypeConversion3_m) >> 14) + MBD_FOC_SENSORLESS_MODEL_B.u0);
 
@@ -1805,7 +1819,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S71>/Sum4'
    */
   MBD_FOC_SENSORLESS_MODEL_B.u0 =
-    MBD_FOC_SENSORLESS_MODEL_ConstP.pooled12[rtb_Get_Integer];
+    MBD_FOC_SENSORLESS_MODEL_ConstP.pooled9[rtb_Get_Integer];
 
   /* Update for Memory: '<S62>/Memory' incorporates:
    *  Constant: '<S66>/offset'
@@ -1818,7 +1832,7 @@ void MbdFocSensorlessCurrentCtrl(void)
    *  Sum: '<S71>/Sum4'
    */
   MBD_FOC_SENSORLESS_MODEL_DW.Memory_PreviousInput = (int16_T)((int16_T)
-    (((int16_T)(MBD_FOC_SENSORLESS_MODEL_ConstP.pooled12[(int32_T)
+    (((int16_T)(MBD_FOC_SENSORLESS_MODEL_ConstP.pooled9[(int32_T)
                 (rtb_Get_Integer + 1U)] - MBD_FOC_SENSORLESS_MODEL_B.u0) *
       rtb_DataTypeConversion3_m) >> 14) + MBD_FOC_SENSORLESS_MODEL_B.u0);
 
@@ -1838,7 +1852,7 @@ void MbdFocSensorlessInit(void)
   MBD_FOC_SENSORLESS_MODEL_PrevZCX.AngleGenPos_PU_Reset_ZCE = POS_ZCSIG;
 
   /* SystemInitialize for Triggered SubSystem: '<Root>/Triggered Subsystem' */
-  /* InitializeConditions for DiscreteIntegrator: '<S94>/Discrete-Time Integrator' */
+  /* InitializeConditions for DiscreteIntegrator: '<S98>/Discrete-Time Integrator' */
   MBD_FOC_SENSORLESS_MODEL_DW.DiscreteTimeIntegrator_DSTATE =
     MBD_FOC_SENSORLESS_MODEL_ConstB.Constant2;
 

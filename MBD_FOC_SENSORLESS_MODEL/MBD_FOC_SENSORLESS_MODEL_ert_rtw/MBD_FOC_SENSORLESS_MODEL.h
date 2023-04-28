@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'MBD_FOC_SENSORLESS_MODEL'.
  *
- * Model version                  : 8.394
+ * Model version                  : 8.405
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Mon Apr 17 20:55:33 2023
+ * C/C++ source code generated on : Fri Apr 28 20:18:20 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -38,8 +38,8 @@
 /* Block signals (default storage) */
 typedef struct {
   int16_T u3[11];
-  real32_T Add1_m;                     /* '<S91>/Add1' */
-  real32_T Sum_c;                      /* '<S94>/Sum' */
+  real32_T Add1_m;                     /* '<S92>/Add1' */
+  real32_T Sum_c;                      /* '<S98>/Sum' */
   int32_T DiscreteTimeIntegrator4;
   int32_T i;
   int32_T u0;
@@ -53,8 +53,8 @@ typedef struct {
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
-  real32_T DiscreteTimeIntegrator_DSTATE;/* '<S94>/Discrete-Time Integrator' */
-  real32_T UnitDelay_DSTATE;           /* '<S91>/Unit Delay' */
+  real32_T DiscreteTimeIntegrator_DSTATE;/* '<S98>/Discrete-Time Integrator' */
+  real32_T UnitDelay_DSTATE;           /* '<S92>/Unit Delay' */
   int32_T DiscreteTimeIntegrator_DSTATE_l;/* '<S57>/Discrete-Time Integrator' */
   int32_T DiscreteTimeIntegrator4_DSTATE;/* '<S63>/Discrete-Time Integrator4' */
   real32_T SpeedRef;                   /* '<Root>/Data Store Memory4' */
@@ -67,7 +67,8 @@ typedef struct {
   int16_T UnitDelay_DSTATE_lr;         /* '<S37>/Unit Delay' */
   int16_T UnitDelay_DSTATE_o;          /* '<S69>/Unit Delay' */
   int16_T UnitDelay4_DSTATE;           /* '<S62>/Unit Delay4' */
-  int16_T UnitDelay_DSTATE_n;          /* '<S88>/Unit Delay' */
+  int16_T UnitDelay_DSTATE_e;          /* '<S95>/Unit Delay' */
+  int16_T UnitDelay_DSTATE_n;          /* '<S89>/Unit Delay' */
   int16_T UnitDelay_DSTATE_nq;         /* '<S59>/Unit Delay' */
   int16_T UnitDelay3_DSTATE_c;         /* '<S63>/Unit Delay3' */
   int16_T Delay1_DSTATE;               /* '<S63>/Delay1' */
@@ -78,7 +79,7 @@ typedef struct {
   int16_T Memory_PreviousInput;        /* '<S62>/Memory' */
   uint8_T Output_DSTATE;               /* '<S1>/Output' */
   boolean_T Delay_DSTATE_k;            /* '<S60>/Delay' */
-  int8_T DiscreteTimeIntegrator_PrevResetState;/* '<S94>/Discrete-Time Integrator' */
+  int8_T DiscreteTimeIntegrator_PrevResetState;/* '<S98>/Discrete-Time Integrator' */
   uint8_T is_c3_MBD_FOC_SENSORLESS_MODEL;/* '<S4>/Chart' */
   uint8_T is_active_c3_MBD_FOC_SENSORLESS_MODEL;/* '<S4>/Chart' */
   boolean_T EnCurOffset;               /* '<Root>/Data Store Memory1' */
@@ -98,8 +99,8 @@ typedef struct {
 /* Invariant block signals (default storage) */
 typedef struct {
   const real32_T Constant2;            /* '<S83>/Constant2' */
-  const real32_T Product;              /* '<S94>/Product' */
-  const real32_T Gain;                 /* '<S94>/Gain' */
+  const real32_T Product;              /* '<S98>/Product' */
+  const real32_T Gain;                 /* '<S98>/Gain' */
   const int32_T DataTypeConversion;    /* '<S57>/Data Type Conversion' */
   const int16_T Square;                /* '<S58>/Square' */
   const boolean_T NOT;                 /* '<S59>/NOT' */
@@ -112,7 +113,7 @@ typedef struct {
    *   '<S17>/sine_table_values'
    *   '<S66>/sine_table_values'
    */
-  int16_T pooled12[1002];
+  int16_T pooled9[1002];
 } ConstP_MBD_FOC_SENSORLESS_MODEL_T;
 
 /* Real-time Model Data Structure */
@@ -201,13 +202,14 @@ extern RT_MODEL_MBD_FOC_SENSORLESS_MODEL_T *const MBD_FOC_SENSORLESS_MODEL_M;
  * Block '<S4>/Open Loop Start-up' : Unused code path elimination
  * Block '<S4>/Switch2' : Unused code path elimination
  * Block '<S82>/Ki2' : Unused code path elimination
- * Block '<S91>/Data Type Duplicate' : Unused code path elimination
  * Block '<S92>/Data Type Duplicate' : Unused code path elimination
- * Block '<S92>/Data Type Propagation' : Unused code path elimination
- * Block '<S93>/Data Type Duplicate' : Unused code path elimination
- * Block '<S93>/Data Type Propagation' : Unused code path elimination
  * Block '<S95>/Data Type Duplicate' : Unused code path elimination
- * Block '<S95>/Data Type Propagation' : Unused code path elimination
+ * Block '<S96>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S96>/Data Type Propagation' : Unused code path elimination
+ * Block '<S97>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S97>/Data Type Propagation' : Unused code path elimination
+ * Block '<S99>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S99>/Data Type Propagation' : Unused code path elimination
  * Block '<S9>/int to uint' : Eliminate redundant data type conversion
  * Block '<S10>/Scale Ia Ib to (A)' : Eliminate redundant data type conversion
  * Block '<S59>/Data Type Conversion' : Eliminate redundant data type conversion
@@ -333,14 +335,18 @@ extern RT_MODEL_MBD_FOC_SENSORLESS_MODEL_T *const MBD_FOC_SENSORLESS_MODEL_M;
  * '<S85>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/Enable Switch/Codegen'
  * '<S86>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/Enable Switch/Codegen/Triggered Subsystem'
  * '<S87>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation'
- * '<S88>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/serialPI'
- * '<S89>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation/IIR Filter'
- * '<S90>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation/IIR Filter/Low-pass'
- * '<S91>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation/IIR Filter/Low-pass/IIR Low Pass Filter'
- * '<S92>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/serialPI/Saturation Dynamic'
- * '<S93>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/serialPI/Saturation Dynamic1'
- * '<S94>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/RateLimiter1/Subsystem'
- * '<S95>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/RateLimiter1/Subsystem/Saturation Dynamic'
+ * '<S88>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation1'
+ * '<S89>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/serialPI'
+ * '<S90>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation/IIR Filter'
+ * '<S91>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation/IIR Filter/Low-pass'
+ * '<S92>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation/IIR Filter/Low-pass/IIR Low Pass Filter'
+ * '<S93>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation1/IIR Filter'
+ * '<S94>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation1/IIR Filter/Low-pass'
+ * '<S95>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/Zero_Cancellation1/IIR Filter/Low-pass/IIR Low Pass Filter'
+ * '<S96>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/serialPI/Saturation Dynamic'
+ * '<S97>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/PI_Controller_Speed/serialPI/Saturation Dynamic1'
+ * '<S98>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/RateLimiter1/Subsystem'
+ * '<S99>'  : 'MBD_FOC_SENSORLESS_MODEL/Triggered Subsystem/RateLimiter1/Subsystem/Saturation Dynamic'
  */
 #endif                              /* RTW_HEADER_MBD_FOC_SENSORLESS_MODEL_h_ */
 
